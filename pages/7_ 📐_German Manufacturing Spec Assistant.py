@@ -27,6 +27,16 @@ st.markdown(
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Allow user to select Document
+option = st.selectbox(
+    "Which Document are you inquiring about?",
+    ("MSG_01_HGPL-B.pdf", "MSG_02_HGPT_HGPL_HGDT.pdf", "MSG_04_measurement_test.pdf"),
+    index=None,
+    placeholder="Select contact Document...",
+    
+st.write("You selected:", option)
+)
+
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -39,8 +49,8 @@ if prompt:
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    URL = 'https://elastic.snaplogic.com/api/1/rest/slsched/feed/ConnectFasterInc/Demo_GenAI_App_Builder_NA/Fordham%20University/Fordham%20University%20-%20RAG%20Task'
-    BEARER_TOKEN = 'ndllpQvqupy08wYBS5ilDmYi8nmYz9FW'
+    URL = 'https://abd36121231c84034b34129e798681ad-485346289.eu-west-3.elb.amazonaws.com/api/1/rest/feed-master/queue/ConnectFasterInc/RG/msg/MSG_Retriever%20Task'
+    BEARER_TOKEN = 'FXxWoR4LqJOGLJ6OZJeoC8xxHAvRyk7Y'
 
     data = {"prompt" : prompt}
 
