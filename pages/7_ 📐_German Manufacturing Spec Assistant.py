@@ -23,6 +23,16 @@ st.markdown(
     - What are the university provisions regarding alcohol?
     """)
 
+# Allow user to select Document
+option = st.selectbox(
+    "Which Document are you inquiring about?",
+    ("MSG_01_HGPL-B.pdf", "MSG_02_HGPT_HGPL_HGDT.pdf", "MSG_04_measurement_test.pdf"),
+    index=None,
+    placeholder="Select contact Document...",
+    
+st.write("You selected:", option)
+)
+
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
