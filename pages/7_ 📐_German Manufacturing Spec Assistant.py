@@ -11,11 +11,11 @@ def typewriter(text: str, speed: int):
         time.sleep(1 / speed)
 
 st.set_page_config(page_title="GenAI Builder - Chatbot")
-st.title("Fordham University ")
+st.title("Manufacturing Spec Assistant")
 
 st.markdown(
     """  
-    ### This is an Academic Chatbot demo that enables inquirers to ask questions about Fordham University Regulations.
+    ### This is an Assistant to help users retrieve information from Manufacturing Specifications and Tests.
     Examples: 
     - What are the university values for advertising
     - What is the Code of Conduct?
@@ -23,15 +23,14 @@ st.markdown(
     - What are the university provisions regarding alcohol?
     """)
 
-# Allow user to select Document
-option = st.selectbox(
-    "Which Document are you inquiring about?",
-    ("MSG_01_HGPL-B.pdf", "MSG_02_HGPT_HGPL_HGDT.pdf", "MSG_04_measurement_test.pdf"),
+# Document Selection
+genre = st.radio(
+    "What's your favorite movie genre",
+    [":rainbow[Comedy]", "***Drama***", "Documentary :movie_camera:"],
     index=None,
-    placeholder="Select contact Document...",
-    
-st.write("You selected:", option)
 )
+
+st.write("You selected:", genre)
 
 # Initialize chat history
 if "messages" not in st.session_state:
