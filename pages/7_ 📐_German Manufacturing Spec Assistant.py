@@ -23,18 +23,19 @@ def doc_proc():
 
 st.set_page_config(page_title="GenAI Builder - Chatbot")
 st.title("Manufacturing Spec Assistant")
+st.subheader("This is an Assistant to help users retrieve information from Manufacturing Specifications and Tests.", divider = "blue")
 
-with st.container(height=300):
+#with st.container(height=300):
+with st.expander("Examples", expanded=True, icon=":material/lightbulb:"):
     st.markdown(
         """  
-        #### This is an Assistant to help users retrieve information from Manufacturing Specifications and Tests. ####
         Examples: 
         | Document | Question|
         | -------- | :-------- |
         | MSG_01_HGPL-B.pdf | What is the weight of the grippers by size? |
         | MSG_01_HGPL-B.pdf | What is the maximum operating frequency of the gripper? |
         | MSG_02_HGPT_HGPL_HGDT.pdf | What are the differences between the various grippers? |
-        | MSG_03_measurement_test_json.json | In which interval is the setpoint for the density? |
+        | MSG_02_HGPT_HGPL_HGDT.pdf  | What is the maximum lifting force of the HGPL in size 14? |
         | MSG_04_measurement_test.pdf | In which interval is the setpoint for the density? |
         | MSG_04_measurement_test.pdf | In which interval is the actual value for the density? |
         """)
@@ -63,6 +64,7 @@ if st.session_state.doc_status == 1:
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
