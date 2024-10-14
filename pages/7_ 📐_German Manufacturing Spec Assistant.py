@@ -78,7 +78,7 @@ if prompt:
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    URL = 'https://abd36121231c84034b34129e798681ad-485346289.eu-west-3.elb.amazonaws.com/api/1/rest/feed-master/queue/ConnectFasterInc/RG/msg/MSG_Ultra%20Task'
+    URL = 'https://afd77e11a20c840bab10aabe6b8482ee-971464689.eu-west-3.elb.amazonaws.com/api/1/rest/feed-master/queue/ConnectFasterInc/RG/msg/MSG_Ultra%20Task'
     BEARER_TOKEN = 's7R0GSJF7AfAayGFrSxHeFC3Tc1tjo3P'
 
     data = {"prompt" : prompt, "Document" : st.session_state.doc_key}
