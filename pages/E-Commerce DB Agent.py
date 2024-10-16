@@ -72,7 +72,8 @@ if prompt:
                 response=result[0]['answer'].replace("NEWLINE ", "**") + "**" + "\n\n"
                 # Display assistant response in chat message container
                 with st.chat_message("assistant"):
-                    typewriter(text=response, speed=10)
+                    st.write(response)
+                   # typewriter(text=response, speed=10)
                 # Add assistant response to chat history
                 st.session_state.EC_messages.append({"role": "assistant", "content": response})
             else:
