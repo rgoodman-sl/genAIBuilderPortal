@@ -64,7 +64,7 @@ with messages_container:
 col1, col2 = st.columns([2, 1])
 with col2:
     if st.button("Get iPhone 13 Price") and not st.session_state.prompt_submitted:
-        default_prompt = "Get price for iPhone13"
+        default_prompt = "Get the price for iPhone13."
         st.session_state.prompt_submitted = True
         with messages_container:
             st.chat_message("user").markdown(default_prompt)
