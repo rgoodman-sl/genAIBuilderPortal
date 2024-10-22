@@ -86,8 +86,8 @@ with col2:
             if response.status_code == 200:
                 result = response.json()
                 if 'summary' in result[0]:
-                    response_text = result[0]['short_response'].replace("$","\$").replace("NEWLINE ", "**") + "**" + "\n\n"
-                    log = result[0]['summary'].replace("$","\$").replace("NEWLINE ", "**") + "**" + "\n\n"
+                    response_text = result[0]['short_response']
+                    log = result[0]['summary'].replace("$","\$")
                     st.session_state.ECE_messages.append({
                         "role": "assistant", 
                         "content": response_text,
