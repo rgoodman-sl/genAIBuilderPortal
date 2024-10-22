@@ -31,7 +31,7 @@ st.markdown(
     ### This is a E-Commerce DB Agent demo that allows non-technical users to interact with SQL databases 
     Examples 
     - Which product had the highest profit margin in the Q3 2024?
-    - Can you update the price of all products in the “tablet” category to include a 15% discount?
+    - Can you update the price of all products in the "tablet" category to include a 15% discount?
     - Compare our new product, iPhone 16, with our top 3 best-selling phones so far?
  """)
 
@@ -43,6 +43,9 @@ if "EC_messages" not in st.session_state:
 for message in st.session_state.EC_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        if "debug_log" in message:
+            with st.expander("Show Agent's Process"):
+                st.markdown(message["debug_log"])
 
 # React to user input
 prompt = st.chat_input("Ask me anything")
@@ -65,22 +68,32 @@ if prompt:
 
         if response.status_code==200:
             result = response.json()
-            # st.write(result)
-            # with st.chat_message("assistant"):
-            #     st.markdown(result)
-            if 'answer' in result[0]:
-                response=result[0]['answer'].replace("$","\$").replace("NEWLINE ", "**") + "**" + "\n\n"
+            if 'summary' in result[0]:
+                response_text = result[0]['short_response'].replace("$","\$").replace("NEWLINE ", "**") + "**" + "\n\n"
+                log = result[0]['summary'].replace("$","\$").replace("NEWLINE ", "**") + "**" + "\n\n"
                 # Display assistant response in chat message container
                 with st.chat_message("assistant"):
-                    st.write(response)
-                   # typewriter(text=response, speed=10)
+                    st.markdown(response_text)
+                    with st.expander("Show Analysis"):
+                        st.markdown(log)
                 # Add assistant response to chat history
-                st.session_state.EC_messages.append({"role": "assistant", "content": response})
+                st.session_state.EC_messages.append({
+                    "role": "assistant", 
+                    "content": response_text,
+                    "debug_log": log
+                })
             else:
                 with st.chat_message("assistant"):
                     st.error(f"❌ Error in the SnapLogic API response")
                     st.error(f"{result['reason']}")
+                    with st.expander("Show Debug Log"):
+                        st.code(result, language="json")
         else:
             with st.chat_message("assistant"):
                 st.error(f"❌ Error while calling the SnapLogic API")
+                with st.expander("Show Debug Log"):
+                    st.code({
+                        "status_code": response.status_code,
+                        "response": response.text
+                    }, language="json")
         st.rerun()
