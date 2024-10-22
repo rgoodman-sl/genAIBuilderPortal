@@ -2,13 +2,11 @@ import streamlit as st
 from dotenv import dotenv_values
 import sys
 
-
 # Load environment
 env = dotenv_values(".env")
 # Streamlit Page Properties
-page_title=env["PAGE_TITLE"]
-title=env["TITLE"]
-
+page_title = env["PAGE_TITLE"]
+title = env["TITLE"]
 
 def clear_chat_history(page_name):
     """
@@ -31,12 +29,15 @@ def clear_chat_history(page_name):
         if history_key in st.session_state:
             del st.session_state[history_key]
 
-
-# Get the name of the current page
+# Set default page to E-Commerce DB Agent
 try:
     current_page = sys.argv[4].split('/')[-1].replace('.py', '')
 except:
-    current_page = 'GenAI_Demo'
+    # Redirect to E-Commerce DB Agent page if no page is specified
+    current_page = 'E-Commerce DB Agent'
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = current_page
+        st.switch_page("pages/E-Commerce DB Agent.py")
 
 # If we're navigating to a new page, clear the previous page's history
 if 'previous_page' in st.session_state:
@@ -52,15 +53,15 @@ st.sidebar.success("Select a demo above.")
 
 st.markdown(
     """
-    
-    ## SnapLogic GenAI Builder allows you to create LLM-based applications in no time! 
+    ## SnapLogic GenAI Builder allows you to create LLM-based applications in no time!
     
     ### **👈 Select a demo from the sidebar** to see some examples of what GenAI Builder can do!
+
     ## Want to learn more?
     - Check out [GenAI Builder](https://www.snaplogic.com/products/genai-builder)
     - Jump into our [documentation](https://docs-snaplogic.atlassian.net/wiki/spaces/SD/overview?homepageId=34537)
     - Ask a question in our [community](https://community.snaplogic.com)
-"""
+    """
 )
 
 # Add a manual clear button to the sidebar for the current page
